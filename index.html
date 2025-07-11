@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio Virtual</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('https://i.imgur.com/6Iej2c3.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #ff0033;
+      text-shadow: 0 0 10px #fff;
+    }
+    .categoria {
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    .categoria h2 {
+      margin-top: 0;
+      color: #ff0033;
+    }
+    .item {
+      margin: 8px 0;
+    }
+    .item span {
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .controls button {
+      background: #ff0033;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .controls input[type="number"] {
+      width: 40px;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+    }
+    .ingredientes, .opcoes {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .ingredientes label, .opcoes label {
+      margin-right: 10px;
+      display: inline-block;
+    }
+    #total {
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #fff;
+    }
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      background: #ff0033;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      text-shadow: 0 0 5px #fff;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cardápio Virtual</h1>
+  <form id="pedidoForm"></form>  <script>
+    const produtos = [
+      // Sanduíches
+      { nome: 'Bauru Simples', preco: 7, categoria: 'Sanduíches', ingredientes: ['Pão', 'Hambúrguer', 'Ovo', 'Orégano', 'Queijo', 'Presunto', 'Salada', 'Milho verde', 'Ervilha'] },
+      { nome: 'X-Tudo', preco: 12, categoria: 'Sanduíches', ingredientes: ['Pão', 'Hambúrguer', 'Ovo', 'Orégano', 'Queijo', 'Presunto', 'Bacon', 'Calabresa', 'Salsicha', 'Salada', 'Milho verde', 'Ervilha'] },
+      { nome: 'Sertanejo', preco: 11, categoria: 'Sanduíches', ingredientes: ['Pão', 'Ovo', 'Orégano', 'Queijo coalho', 'Carne de sol com catupiry', 'Salada'] },
+      { nome: 'X-Frango', preco: 10, categoria: 'Sanduíches', ingredientes: ['Pão', 'Ovo', 'Orégano', 'Queijo', 'Frango com catupiry', 'Salada', 'Milho verde', 'Ervilha'] },
+      { nome: 'X-Bacon', preco: 10, categoria: 'Sanduíches', ingredientes: ['Pão', 'Hambúrguer', 'Ovo', 'Orégano', 'Queijo', 'Bacon com catupiry', 'Salada', 'Milho verde', 'Ervilha'] },
+      { nome: 'Misto', preco: 5, categoria: 'Sanduíches', ingredientes: ['Pão', 'Queijo', 'Presunto'] },
+      { nome: 'Torrada', preco: 4, categoria: 'Sanduíches', ingredientes: ['Pão', 'Queijo'] },
+      { nome: 'Hot-Dog Tradicional', preco: 8, categoria: 'Sanduíches', ingredientes: ['Pão', 'Salsicha', 'Carne moída', 'Frango', 'Milho verde', 'Ervilha', 'Vinagrete', 'Batata palha'] },
+      { nome: 'Hot-Dog Carne de Sol na Nata', preco: 10, categoria: 'Sanduíches', ingredientes: ['Pão', 'Carne de sol na nata', 'Salsicha', 'Milho verde', 'Ervilha', 'Vinagrete', 'Batata palha'] },
+      { nome: 'Hot-Dog Carne de Sol', preco: 9, categoria: 'Sanduíches', ingredientes: ['Pão', 'Carne de sol', 'Salsicha', 'Milho verde', 'Ervilha', 'Vinagrete', 'Batata palha'] },
+      // Batatinhas
+      { nome: 'Batata P', preco: 5, categoria: 'Batatinhas', ingredientes: [] },
+      { nome: 'Batata M', preco: 7, categoria: 'Batatinhas', ingredientes: [] },
+      { nome: 'Batata G', preco: 10, categoria: 'Batatinhas', ingredientes: [] },
+      // Refrigerantes 1L
+      { nome: 'Coca-Cola 1L', preco: 9, categoria: 'Refrigerantes 1L', ingredientes: [] },
+      { nome: 'Pepsi 1L', preco: 8, categoria: 'Refrigerantes 1L', ingredientes: [] },
+      { nome: 'Guaraná 1L', preco: 8, categoria: 'Refrigerantes 1L', ingredientes: [] },
+      { nome: 'Fanta 1L', preco: 9, categoria: 'Refrigerantes 1L', ingredientes: [] },
+      // Refrigerantes Latinha
+      { nome: 'Coca-Cola (latinha)', preco: 5, categoria: 'Refrigerantes Latinha', ingredientes: [] },
+      { nome: 'Pepsi (latinha)', preco: 5, categoria: 'Refrigerantes Latinha', ingredientes: [] },
+      { nome: 'Guaraná (latinha)', preco: 5, categoria: 'Refrigerantes Latinha', ingredientes: [] },
+      { nome: 'Fanta (latinha)', preco: 5, categoria: 'Refrigerantes Latinha', ingredientes: [] },
+      // Vitaminas
+      { nome: 'Vitamina de Abacate', preco: 7, categoria: 'Vitaminas', ingredientes: [] },
+      { nome: 'Vitamina de Banana', preco: 6, categoria: 'Vitaminas', ingredientes: [] }
+    ];
+
+    // ... (restante do script permanece o mesmo)
+  </script></body>
+</html>
