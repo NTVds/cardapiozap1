@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardápio Interativo</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #ff0033;
+      text-shadow: 0 0 10px #ff0033;
+      margin-top: 0;
+    }
+    .produto {
+      border: 2px solid #ff0033;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background-color: #111;
+      box-shadow: 0 0 15px #ff0033;
+    }
+    label {
+      display: block;
+      margin-left: 10px;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    #pedido {
+      margin-top: 20px;
+      white-space: pre-line;
+      border: 1px solid #fff;
+      padding: 10px;
+    }
+    .btn {
+      background-color: #ff0033;
+      color: white;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      font-size: 18px;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .quantidade {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+    .quantidade button {
+      background-color: #ff0033;
+      color: white;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    .quantidade span {
+      min-width: 20px;
+      text-align: center;
+    }
+    .item-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-info {
+      flex-grow: 1;
+    }
+    .ingredientes {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📱 Cardápio Interativo</h1>
+
+  <h2>🍔 Sanduíches</h2>
+
+  <div class="produto">
+    <h3>🍔 Bauru Simples - R$7,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 Bauru Simples - R$7,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🥚 Ovo"> 🥚 Ovo</label>
+      <label><input type="checkbox" value="🐷 Presunto"> 🐷 Presunto</label>
+      <label><input type="checkbox" value="🧀 Queijo"> 🧀 Queijo</label>
+      <label><input type="checkbox" value="🌽 Milho"> 🌽 Milho</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+      <label><input type="checkbox" value="🥗 Salada"> 🥗 Salada</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 X-Tudo - R$12,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 X-Tudo - R$12,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🍔 Hambúrguer"> 🍔 Hambúrguer</label>
+      <label><input type="checkbox" value="🐷 Presunto"> 🐷 Presunto</label>
+      <label><input type="checkbox" value="🥓 Bacon"> 🥓 Bacon</label>
+      <label><input type="checkbox" value="🌭 Calabresa"> 🌭 Calabresa</label>
+      <label><input type="checkbox" value="🌭 Salsicha"> 🌭 Salsicha</label>
+      <label><input type="checkbox" value="🥗 Salada"> 🥗 Salada</label>
+      <label><input type="checkbox" value="🌽 Milho"> 🌽 Milho</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 Sertanejo - R$11,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 Sertanejo - R$11,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🥚 Ovo"> 🥚 Ovo</label>
+      <label><input type="checkbox" value="🧀 Queijo Coalho"> 🧀 Queijo Coalho</label>
+      <label><input type="checkbox" value="🥩 Carne de Sol com Catupiry"> 🥩 Carne de Sol com Catupiry</label>
+      <label><input type="checkbox" value="🥗 Salada"> 🥗 Salada</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 X-Frango - R$10,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 X-Frango - R$10,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🥚 Ovo"> 🥚 Ovo</label>
+      <label><input type="checkbox" value="🧀 Queijo"> 🧀 Queijo</label>
+      <label><input type="checkbox" value="🐔 Frango com Catupiry"> 🐔 Frango com Catupiry</label>
+      <label><input type="checkbox" value="🥗 Salada"> 🥗 Salada</label>
+      <label><input type="checkbox" value="🌽 Milho"> 🌽 Milho</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 X-Bacon - R$10,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 X-Bacon - R$10,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🍔 Hambúrguer"> 🍔 Hambúrguer</label>
+      <label><input type="checkbox" value="🥚 Ovo"> 🥚 Ovo</label>
+      <label><input type="checkbox" value="🧀 Queijo"> 🧀 Queijo</label>
+      <label><input type="checkbox" value="🥓 Bacon com Catupiry"> 🥓 Bacon com Catupiry</label>
+      <label><input type="checkbox" value="🥗 Salada"> 🥗 Salada</label>
+      <label><input type="checkbox" value="🌽 Milho"> 🌽 Milho</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 Misto - R$5,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 Misto - R$5,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🧀 Queijo"> 🧀 Queijo</label>
+      <label><input type="checkbox" value="🐷 Presunto"> 🐷 Presunto</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 Torrada - R$4,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍔 Torrada - R$4,00"> Selecionar sanduíche</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🧀 Queijo"> 🧀 Queijo</label>
+    </div>
+  </div>
+
+  <h2>🌭 Cachorros-Quentes</h2>
+
+  <div class="produto">
+    <h3>🌭 Hot-Dog Tradicional - R$4,50</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🌭 Hot-Dog Tradicional - R$4,50"> Selecionar</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🍞 Pão"> 🍞 Pão</label>
+      <label><input type="checkbox" value="🌭 Salsicha"> 🌭 Salsicha</label>
+      <label><input type="checkbox" value="🥩 Carne Moída"> 🥩 Carne Moída</label>
+      <label><input type="checkbox" value="🐔 Frango"> 🐔 Frango</label>
+      <label><input type="checkbox" value="🌽 Milho Verde"> 🌽 Milho Verde</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+      <label><input type="checkbox" value="🧅 Vinagrete"> 🧅 Vinagrete</label>
+      <label><input type="checkbox" value="🍟 Batata Palha"> 🍟 Batata Palha</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🌭 Hot-Dog Carne de Sol - R$7,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🌭 Hot-Dog Carne de Sol - R$7,00"> Selecionar</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🍞 Pão"> 🍞 Pão</label>
+      <label><input type="checkbox" value="🥩 Carne de Sol"> 🥩 Carne de Sol</label>
+      <label><input type="checkbox" value="🌭 Salsicha"> 🌭 Salsicha</label>
+      <label><input type="checkbox" value="🌽 Milho Verde"> 🌽 Milho Verde</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+      <label><input type="checkbox" value="🧅 Vinagrete"> 🧅 Vinagrete</label>
+      <label><input type="checkbox" value="🍟 Batata Palha"> 🍟 Batata Palha</label>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🌭 Hot-Dog Carne de Sol na Nata - R$8,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🌭 Hot-Dog Carne de Sol na Nata - R$8,00"> Selecionar</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="ingredientes">
+      <label><input type="checkbox" value="🍞 Pão"> 🍞 Pão</label>
+      <label><input type="checkbox" value="🥩 Carne de Sol na Nata"> 🥩 Carne de Sol na Nata</label>
+      <label><input type="checkbox" value="🌭 Salsicha"> 🌭 Salsicha</label>
+      <label><input type="checkbox" value="🌽 Milho Verde"> 🌽 Milho Verde</label>
+      <label><input type="checkbox" value="🟢 Ervilha"> 🟢 Ervilha</label>
+      <label><input type="checkbox" value="🧅 Vinagrete"> 🧅 Vinagrete</label>
+      <label><input type="checkbox" value="🍟 Batata Palha"> 🍟 Batata Palha</label>
+    </div>
+  </div>
+
+  <h2>🍟 Acompanhamentos</h2>
+
+  <div class="produto">
+    <h3>🍟 Batatas</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍟 Batata P - R$5,00"> 🍟 Batata P - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍟 Batata M - R$7,00"> 🍟 Batata M - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍟 Batata G - R$10,00"> 🍟 Batata G - R$10,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="produto">
+    <h3>🍲 Sopa - R$7,00</h3>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🍲 Sopa - R$7,00"> Selecionar</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>🥤 Bebidas</h2>
+
+  <h3>🍾 Refrigerantes (1 Litro)</h3>
+  <div class="produto">
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Coca-Cola 1L - R$9,00"> 🥤 Coca-Cola 1L - R$9,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Pepsi 1L - R$8,00"> 🥤 Pepsi 1L - R$8,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Guaraná 1L - R$8,00"> 🥤 Guaraná 1L - R$8,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Fanta 1L - R$9,00"> 🥤 Fanta 1L - R$9,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>🥫 Refrigerantes (Lata)</h3>
+  <div class="produto">
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Coca-Cola Lata - R$5,00"> 🥤 Coca-Cola Lata - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Pepsi Lata - R$5,00"> 🥤 Pepsi Lata - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Guaraná Lata - R$5,00"> 🥤 Guaraná Lata - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥤 Fanta Lata - R$5,00"> 🥤 Fanta Lata - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>🧃 Sucos (Água ou Leite)</h3>
+  <div class="produto">
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Goiaba (Água) - R$5,00"> 🧃 Goiaba (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Goiaba (Leite) - R$7,00"> 🧃 Goiaba (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Caja (Água) - R$5,00"> 🧃 Caja (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Caja (Leite) - R$7,00"> 🧃 Caja (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Acerola (Água) - R$5,00"> 🧃 Acerola (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Acerola (Leite) - R$7,00"> 🧃 Acerola (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Caju (Água) - R$5,00"> 🧃 Caju (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Caju (Leite) - R$7,00"> 🧃 Caju (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Graviola (Água) - R$5,00"> 🧃 Graviola (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Graviola (Leite) - R$7,00"> 🧃 Graviola (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Uva (Água) - R$5,00"> 🧃 Uva (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Uva (Leite) - R$7,00"> 🧃 Uva (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Maracujá (Água) - R$5,00"> 🧃 Maracujá (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Maracujá (Leite) - R$7,00"> 🧃 Maracujá (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Mangaba (Água) - R$5,00"> 🧃 Mangaba (Água) - R$5,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🧃 Suco de Mangaba (Leite) - R$7,00"> 🧃 Mangaba (Leite) - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>🥛 Vitaminas</h3>
+  <div class="produto">
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥛 Vitamina de Abacate - R$7,00"> 🥛 Abacate - R$7,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+    <div class="item-container">
+      <div class="item-info">
+        <label><input type="checkbox" class="main-item" value="🥛 Vitamina de Banana - R$6,00"> 🥛 Banana - R$6,00</label>
+      </div>
+      <div class="quantidade">
+        <button onclick="decrement(this)">-</button>
+        <span>1</span>
+        <button onclick="increment(this)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>📋 Finalize seu pedido</h2>
+  <input type="text" id="nome" placeholder="Seu nome">
+  <input type="text" id="endereco" placeholder="Endereço">
+  <input type="text" id="mesa" placeholder="Mesa (se estiver no local)">
+  <div id="pedido"></div>
+  <button class="btn" onclick="enviarPedido()">📲 Enviar via WhatsApp</button>
+
+  <script>
+    function increment(button) {
+      const span = button.previousElementSibling;
+      span.textContent = parseInt(span.textContent) + 1;
+    }
+
+    function decrement(button) {
+      const span = button.nextElementSibling;
+      let value = parseInt(span.textContent);
+      if (value > 1) {
+        span.textContent = value - 1;
+      }
+    }
+
+    function enviarPedido() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      let pedido = "📋 *PEDIDO REALIZADO* 🍽️\n\n";
+      let currentCategory = "";
+      
+      const itemsByCategory = {
+        "🍔 Sanduíches": [],
+        "🌭 Cachorros-Quentes": [],
+        "🍟 Acompanhamentos": [],
+        "🥤 Bebidas": [],
+        "🍲 Outros": []
+      };
+      
+      checkboxes.forEach(cb => {
+        const container = cb.closest('.item-container');
+        let quantidade = 1;
+        if (container) {
+          quantidade = parseInt(container.querySelector('.quantidade span').textContent);
+        }
+        
+        const value = cb.value;
+        if (cb.classList.contains('main-item')) {
+          const itemWithQuantity = `${value} (x${quantidade})`;
+          if (value.includes("🍔")) itemsByCategory["🍔 Sanduíches"].push(itemWithQuantity);
+          else if (value.includes("🌭")) itemsByCategory["🌭 Cachorros-Quentes"].push(itemWithQuantity);
+          else if (value.includes("🥤") || value.includes("🧃") || value.includes("🥛")) itemsByCategory["🥤 Bebidas"].push(itemWithQuantity);
+          else if (value.includes("🍟") || value.includes("🍲")) itemsByCategory["🍟 Acompanhamentos"].push(itemWithQuantity);
+          else itemsByCategory["🍲 Outros"].push(itemWithQuantity);
+        } else {
+          const lastCategory = Object.keys(itemsByCategory).find(cat => 
+            itemsByCategory[cat].length > 0 && 
+            itemsByCategory[cat][itemsByCategory[cat].length-1].includes("R$")
+          );
+          if (lastCategory) itemsByCategory[lastCategory].push(`   ➕ ${value}`);
+        }
+      });
+      
+      for (const [category, items] of Object.entries(itemsByCategory)) {
+        if (items.length > 0) {
+          pedido += `\n${category}:\n`;
+          items.forEach(item => pedido += `${item}\n`);
+        }
+      }
+      
+      const nome = document.getElementById("nome").value;
+      const endereco = document.getElementById("endereco").value;
+      const mesa = document.getElementById("mesa").value;
+
+      pedido += `\n👤 *Nome:* ${nome || "---"}\n📍 *Endereço:* ${endereco || "---"}\n🍽️ *Mesa:* ${mesa || "---"}`;
+
+      const numero = "5584988507804";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(pedido)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+          </html>
