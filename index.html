@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardápio Interativo</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #ff0033;
+      text-shadow: 0 0 10px #ff0033;
+    }
+    .produto {
+      border: 2px solid #ff0033;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background-color: #111;
+      box-shadow: 0 0 15px #ff0033;
+    }
+    .produto h3 {
+      color: #ff0033;
+    }
+    label {
+      display: block;
+      margin-left: 10px;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    #pedido {
+      margin-top: 20px;
+      white-space: pre-line;
+      border: 1px solid #fff;
+      padding: 10px;
+    }
+    .btn {
+      background-color: #ff0033;
+      color: white;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      font-size: 18px;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📱 Cardápio Interativo</h1>
+
+  <h2>🍔 Sanduíches</h2>
+
+  <div class="produto">
+    <h3>🍔 Bauru Simples - R$7,00</h3>
+    <label><input type="checkbox" value="Ovo"> Ovo</label>
+    <label><input type="checkbox" value="Presunto"> Presunto</label>
+    <label><input type="checkbox" value="Queijo"> Queijo</label>
+    <label><input type="checkbox" value="Milho"> Milho</label>
+    <label><input type="checkbox" value="Ervilha"> Ervilha</label>
+    <label><input type="checkbox" value="Salada"> Salada</label>
+  </div>
+
+  <div class="produto">
+    <h3>🍔 X-Tudo - R$12,00</h3>
+    <label><input type="checkbox" value="Hambúrguer"> Hambúrguer</label>
+    <label><input type="checkbox" value="Presunto"> Presunto</label>
+    <label><input type="checkbox" value="Bacon"> Bacon</label>
+    <label><input type="checkbox" value="Calabresa"> Calabresa</label>
+    <label><input type="checkbox" value="Salsicha"> Salsicha</label>
+    <label><input type="checkbox" value="Salada"> Salada</label>
+    <label><input type="checkbox" value="Milho"> Milho</label>
+    <label><input type="checkbox" value="Ervilha"> Ervilha</label>
+  </div>
+
+  <div class="produto">
+    <h3>🌭 Hot-Dog Tradicional - R$7,00</h3>
+    <label><input type="checkbox" value="Carne moída"> Carne moída</label>
+    <label><input type="checkbox" value="Frango"> Frango</label>
+    <label><input type="checkbox" value="Milho"> Milho</label>
+    <label><input type="checkbox" value="Vinagrete"> Vinagrete</label>
+    <label><input type="checkbox" value="Batata Palha"> Batata Palha</label>
+  </div>
+
+  <!-- Você pode continuar adicionando os demais sanduíches e bebidas no mesmo padrão -->
+
+  <h2>🍟 Batatinhas</h2>
+  <div class="produto">
+    <label><input type="checkbox" value="Batata P"> Batata P - R$5,00</label>
+    <label><input type="checkbox" value="Batata M"> Batata M - R$7,00</label>
+    <label><input type="checkbox" value="Batata G"> Batata G - R$10,00</label>
+  </div>
+
+  <h2>🥤 Refrigerantes</h2>
+  <div class="produto">
+    <label><input type="checkbox" value="Coca 1L"> Coca-Cola 1L - R$9,00</label>
+    <label><input type="checkbox" value="Pepsi 1L"> Pepsi 1L - R$8,00</label>
+    <label><input type="checkbox" value="Guaraná 1L"> Guaraná 1L - R$8,00</label>
+    <label><input type="checkbox" value="Fanta 1L"> Fanta 1L - R$9,00</label>
+    <label><input type="checkbox" value="Coca Lata"> Coca-Cola Lata - R$5,00</label>
+    <label><input type="checkbox" value="Pepsi Lata"> Pepsi Lata - R$5,00</label>
+  </div>
+
+  <h2>🧃 Sucos</h2>
+  <div class="produto">
+    <label><input type="checkbox" value="Goiaba (água)"> Goiaba (água) - R$5,00</label>
+    <label><input type="checkbox" value="Goiaba (leite)"> Goiaba (leite) - R$7,00</label>
+    <label><input type="checkbox" value="Caja (água)"> Caja (água) - R$5,00</label>
+    <label><input type="checkbox" value="Mangaba (água)"> Mangaba (água) - R$5,00</label>
+  </div>
+
+  <h2>🥛 Vitaminas</h2>
+  <div class="produto">
+    <label><input type="checkbox" value="Vitamina de Abacate"> Abacate - R$7,00</label>
+    <label><input type="checkbox" value="Vitamina de Banana"> Banana - R$6,00</label>
+  </div>
+
+  <h2>📋 Finalize seu pedido</h2>
+  <input type="text" id="nome" placeholder="Seu nome">
+  <input type="text" id="endereco" placeholder="Endereço">
+  <input type="text" id="mesa" placeholder="Mesa (se estiver no local)">
+  <div id="pedido"></div>
+  <button class="btn" onclick="enviarPedido()">📲 Enviar via WhatsApp</button>
+
+  <script>
+    function enviarPedido() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      let pedido = "📋 *PEDIDO REALIZADO*\n\n";
+      checkboxes.forEach(cb => {
+        pedido += `🍔 ${cb.value}\n`;
+      });
+
+      const nome = document.getElementById("nome").value;
+      const endereco = document.getElementById("endereco").value;
+      const mesa = document.getElementById("mesa").value;
+
+      pedido += `\n👤 *Nome:* ${nome || "---"}\n📍 *Endereço:* ${endereco || "---"}\n🍽️ *Mesa:* ${mesa || "---"}`;
+
+      const numero = "5584988507804";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(pedido)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
