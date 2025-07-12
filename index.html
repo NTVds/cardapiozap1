@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio Digital Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff4757;
+      --secondary: #ff6b81;
+      --dark: #1e272e;
+      --light: #f5f6fa;
+      --success: #2ed573;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f1f2f6;
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+      opacity: 0.3;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin: 1.5rem 0;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+    
+    .menu-category {
+      margin-bottom: 2.5rem;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-header {
+      padding: 1.2rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .product-body {
+      padding: 1.2rem;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .quantity-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--light);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+    
+    .quantity-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .quantity-value {
+      margin: 0 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    .ingredients-list {
+      list-style: none;
+      margin-top: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .product-card.active .ingredients-list {
+      max-height: 500px;
+    }
+    
+    .ingredient-item {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .ingredient-item input {
+      margin-right: 10px;
+    }
+    
+    .toggle-ingredients {
+      background: none;
+      border: none;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+    
+    .toggle-ingredients:hover {
+      color: var(--primary);
+    }
+    
+    .toggle-ingredients i {
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+    
+    .product-card.active .toggle-ingredients i {
+      transform: rotate(180deg);
+    }
+    
+    .order-summary {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 71, 87, 0.4);
+    }
+    
+    .btn i {
+      margin-right: 8px;
+    }
+    
+    .order-items {
+      margin: 1.5rem 0;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .floating-cart {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 5px 20px rgba(255, 71, 87, 0.5);
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    
+    .floating-cart:hover {
+      transform: scale(1.1);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--success);
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .beverage-options {
+      display: flex;
+      margin-top: 10px;
+    }
+    
+    .beverage-option {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid #ddd;
+    }
+    
+    .beverage-option.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .floating-cart {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .product-card {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+    
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .product-card:nth-child(6) { animation-delay: 0.6s; }
+    .product-card:nth-child(7) { animation-delay: 0.7s; }
+    .product-card:nth-child(8) { animation-delay: 0.8s; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1><i class="fas fa-utensils"></i> Cardápio Digital</h1>
+      <p>Faça seu pedido de forma rápida e fácil</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="menu-category">
+      <h2><i class="fas fa-hamburger"></i> Sanduíches</h2>
+      <div class="products-grid">
+        <!-- Bauru Simples -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Bauru Simples</h3>
+            <span class="product-price">R$ 7,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-ovo" value="🥚 Ovo">
+                <label for="bauru-ovo">🥚 Ovo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-presunto" value="🐷 Presunto">
+                <label for="bauru-presunto">🐷 Presunto</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-queijo" value="🧀 Queijo">
+                <label for="bauru-queijo">🧀 Queijo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-milho" value="🌽 Milho">
+                <label for="bauru-milho">🌽 Milho</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-ervilha" value="🟢 Ervilha">
+                <label for="bauru-ervilha">🟢 Ervilha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="bauru-salada" value="🥗 Salada">
+                <label for="bauru-salada">🥗 Salada</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- X-Tudo -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">X-Tudo</h3>
+            <span class="product-price">R$ 12,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-hamburguer" value="🍔 Hambúrguer">
+                <label for="xtudo-hamburguer">🍔 Hambúrguer</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-presunto" value="🐷 Presunto">
+                <label for="xtudo-presunto">🐷 Presunto</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-bacon" value="🥓 Bacon">
+                <label for="xtudo-bacon">🥓 Bacon</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-calabresa" value="🌭 Calabresa">
+                <label for="xtudo-calabresa">🌭 Calabresa</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-salsicha" value="🌭 Salsicha">
+                <label for="xtudo-salsicha">🌭 Salsicha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-salada" value="🥗 Salada">
+                <label for="xtudo-salada">🥗 Salada</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-milho" value="🌽 Milho">
+                <label for="xtudo-milho">🌽 Milho</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xtudo-ervilha" value="🟢 Ervilha">
+                <label for="xtudo-ervilha">🟢 Ervilha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- X-Bacon -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">X-Bacon</h3>
+            <span class="product-price">R$ 10,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-hamburguer" value="🍔 Hambúrguer">
+                <label for="xbacon-hamburguer">🍔 Hambúrguer</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-ovo" value="🥚 Ovo">
+                <label for="xbacon-ovo">🥚 Ovo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-queijo" value="🧀 Queijo">
+                <label for="xbacon-queijo">🧀 Queijo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-bacon" value="🥓 Bacon com Catupiry">
+                <label for="xbacon-bacon">🥓 Bacon com Catupiry</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-salada" value="🥗 Salada">
+                <label for="xbacon-salada">🥗 Salada</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-milho" value="🌽 Milho">
+                <label for="xbacon-milho">🌽 Milho</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xbacon-ervilha" value="🟢 Ervilha">
+                <label for="xbacon-ervilha">🟢 Ervilha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- X-Frango -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">X-Frango</h3>
+            <span class="product-price">R$ 10,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-ovo" value="🥚 Ovo">
+                <label for="xfrango-ovo">🥚 Ovo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-queijo" value="🧀 Queijo">
+                <label for="xfrango-queijo">🧀 Queijo</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-frango" value="🐔 Frango com Catupiry">
+                <label for="xfrango-frango">🐔 Frango com Catupiry</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-salada" value="🥗 Salada">
+                <label for="xfrango-salada">🥗 Salada</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-milho" value="🌽 Milho">
+                <label for="xfrango-milho">🌽 Milho</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="xfrango-ervilha" value="🟢 Ervilha">
+                <label for="xfrango-ervilha">🟢 Ervilha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-category">
+      <h2><i class="fas fa-hotdog"></i> Cachorros-Quentes</h2>
+      <div class="products-grid">
+        <!-- Hot Dog Tradicional -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Hot Dog Tradicional</h3>
+            <span class="product-price">R$ 4,50</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-pao" value="🍞 Pão">
+                <label for="hotdog-pao">🍞 Pão</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-salsicha" value="🌭 Salsicha">
+                <label for="hotdog-salsicha">🌭 Salsicha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-carne" value="🥩 Carne Moída">
+                <label for="hotdog-carne">🥩 Carne Moída</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-frango" value="🐔 Frango">
+                <label for="hotdog-frango">🐔 Frango</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-milho" value="🌽 Milho Verde">
+                <label for="hotdog-milho">🌽 Milho Verde</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-ervilha" value="🟢 Ervilha">
+                <label for="hotdog-ervilha">🟢 Ervilha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-vinagrete" value="🧅 Vinagrete">
+                <label for="hotdog-vinagrete">🧅 Vinagrete</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdog-batata" value="🍟 Batata Palha">
+                <label for="hotdog-batata">🍟 Batata Palha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Hot Dog Carne de Sol -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Hot Dog Carne de Sol</h3>
+            <span class="product-price">R$ 7,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-pao" value="🍞 Pão">
+                <label for="hotdogcs-pao">🍞 Pão</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-carne" value="🥩 Carne de Sol">
+                <label for="hotdogcs-carne">🥩 Carne de Sol</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-salsicha" value="🌭 Salsicha">
+                <label for="hotdogcs-salsicha">🌭 Salsicha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-milho" value="🌽 Milho Verde">
+                <label for="hotdogcs-milho">🌽 Milho Verde</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-ervilha" value="🟢 Ervilha">
+                <label for="hotdogcs-ervilha">🟢 Ervilha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-vinagrete" value="🧅 Vinagrete">
+                <label for="hotdogcs-vinagrete">🧅 Vinagrete</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcs-batata" value="🍟 Batata Palha">
+                <label for="hotdogcs-batata">🍟 Batata Palha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Hot Dog Carne de Sol na Nata -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Hot Dog Carne de Sol na Nata</h3>
+            <span class="product-price">R$ 8,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Personalizar ingredientes <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-pao" value="🍞 Pão">
+                <label for="hotdogcsn-pao">🍞 Pão</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-carne" value="🥩 Carne de Sol na Nata">
+                <label for="hotdogcsn-carne">🥩 Carne de Sol na Nata</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-salsicha" value="🌭 Salsicha">
+                <label for="hotdogcsn-salsicha">🌭 Salsicha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-milho" value="🌽 Milho Verde">
+                <label for="hotdogcsn-milho">🌽 Milho Verde</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-ervilha" value="🟢 Ervilha">
+                <label for="hotdogcsn-ervilha">🟢 Ervilha</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-vinagrete" value="🧅 Vinagrete">
+                <label for="hotdogcsn-vinagrete">🧅 Vinagrete</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="hotdogcsn-batata" value="🍟 Batata Palha">
+                <label for="hotdogcsn-batata">🍟 Batata Palha</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-category">
+      <h2><i class="fas fa-wine-glass-alt"></i> Bebidas</h2>
+      <div class="products-grid">
+        <!-- Refrigerantes 1L -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Refrigerante 1L</h3>
+            <span class="product-price">R$ 9,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Escolher sabores <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri1-coca" value="🥤 Coca-Cola 1L">
+                <label for="refri1-coca">🥤 Coca-Cola</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri1-pepsi" value="🥤 Pepsi 1L">
+                <label for="refri1-pepsi">🥤 Pepsi</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri1-guarana" value="🥤 Guaraná 1L">
+                <label for="refri1-guarana">🥤 Guaraná</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri1-fanta" value="🥤 Fanta 1L">
+                <label for="refri1-fanta">🥤 Fanta</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Refrigerantes Lata -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Refrigerante Lata</h3>
+            <span class="product-price">R$ 5,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Escolher sabores <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri-coca" value="🥤 Coca-Cola Lata">
+                <label for="refri-coca">🥤 Coca-Cola</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri-pepsi" value="🥤 Pepsi Lata">
+                <label for="refri-pepsi">🥤 Pepsi</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri-guarana" value="🥤 Guaraná Lata">
+                <label for="refri-guarana">🥤 Guaraná</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="refri-fanta" value="🥤 Fanta Lata">
+                <label for="refri-fanta">🥤 Fanta</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sucos -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Sucos Naturais</h3>
+            <span class="product-price">R$ 5,00 (Água) / R$ 7,00 (Leite)</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <div class="beverage-options">
+              <div class="beverage-option selected" onclick="selectBeverageOption(this, 'agua')">
+                Água
+              </div>
+              <div class="beverage-option" onclick="selectBeverageOption(this, 'leite')">
+                Leite
+              </div>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Escolher sabores <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-goiaba" value="🧃 Suco de Goiaba">
+                <label for="suco-goiaba">🧃 Goiaba</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-caja" value="🧃 Suco de Caja">
+                <label for="suco-caja">🧃 Caja</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-acerola" value="🧃 Suco de Acerola">
+                <label for="suco-acerola">🧃 Acerola</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-caju" value="🧃 Suco de Caju">
+                <label for="suco-caju">🧃 Caju</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-graviola" value="🧃 Suco de Graviola">
+                <label for="suco-graviola">🧃 Graviola</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-uva" value="🧃 Suco de Uva">
+                <label for="suco-uva">🧃 Uva</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-maracuja" value="🧃 Suco de Maracujá">
+                <label for="suco-maracuja">🧃 Maracujá</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="suco-mangaba" value="🧃 Suco de Mangaba">
+                <label for="suco-mangaba">🧃 Mangaba</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Vitaminas -->
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">Vitaminas</h3>
+            <span class="product-price">R$ 6,00 - R$ 7,00</span>
+          </div>
+          <div class="product-body">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" onclick="decrement(this)">-</button>
+              <span class="quantity-value">0</span>
+              <button class="quantity-btn plus" onclick="increment(this)">+</button>
+            </div>
+            <button class="toggle-ingredients" onclick="toggleIngredients(this)">
+              Escolher sabores <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="ingredients-list">
+              <li class="ingredient-item">
+                <input type="checkbox" id="vitamina-abacate" value="🥛 Vitamina de Abacate - R$7,00">
+                <label for="vitamina-abacate">🥛 Abacate - R$7,00</label>
+              </li>
+              <li class="ingredient-item">
+                <input type="checkbox" id="vitamina-banana" value="🥛 Vitamina de Banana - R$6,00">
+                <label for="vitamina-banana">🥛 Banana - R$6,00</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="order-summary">
+      <h2><i class="fas fa-receipt"></i> Resumo do Pedido</h2>
+      
+      <div class="form-group">
+        <label for="nome">Seu Nome</label>
+        <input type="text" id="nome" class="form-control" placeholder="Digite seu nome">
+      </div>
+      
+      <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" class="form-control" placeholder="Digite seu endereço">
+      </div>
+      
+      <div class="form-group">
+        <label for="mesa">Número da Mesa (se aplicável)</label>
+        <input type="text" id="mesa" class="form-control" placeholder="Número da mesa">
+      </div>
+      
+      <div class="order-items" id="order-preview">
+        <!-- Itens do pedido serão exibidos aqui -->
+      </div>
+      
+      <button class="btn" onclick="enviarPedido()">
+        <i class="fab fa-whatsapp"></i> Enviar Pedido
+      </button>
+    </div>
+  </main>
+
+  <div class="floating-cart" onclick="scrollToOrder()">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cart-count">0</span>
+  </div>
+
+  <script>
+    // Funções para controle de quantidade
+    function increment(button) {
+      const span = button.previousElementSibling;
+      span.textContent = parseInt(span.textContent) + 1;
+      updateCartCount();
+      updateOrderPreview();
+    }
+
+    function decrement(button) {
+      const span = button.nextElementSibling;
+      let value = parseInt(span.textContent);
+      if (value > 0) {
+        span.textContent = value - 1;
+        updateCartCount();
+        updateOrderPreview();
+      }
+    }
+
+    // Função para mostrar/esconder ingredientes
+    function toggleIngredients(button) {
+      const productCard = button.closest('.product-card');
+      productCard.classList.toggle('active');
+    }
+
+    // Seleciona opção de bebida (água/leite)
+    function selectBeverageOption(element, type) {
+      const container = element.closest('.beverage-options');
+      container.querySelectorAll('.beverage-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      
+      // Atualiza o preço conforme a seleção
+      const priceElement = element.closest('.product-card').querySelector('.product-price');
+      if (type === 'agua') {
+        priceElement.textContent = 'R$ 5,00 (Água)';
+      } else {
+        priceElement.textContent = 'R$ 7,00 (Leite)';
+      }
+      
+      updateOrderPreview();
+    }
+
+    // Atualiza o contador do carrinho
+    function updateCartCount() {
+      let total = 0;
+      document.querySelectorAll('.quantity-value').forEach(item => {
+        total += parseInt(item.textContent);
+      });
+      document.getElementById('cart-count').textContent = total;
+    }
+
+    // Atualiza a pré-visualização do pedido
+    function updateOrderPreview() {
+      const orderPreview = document.getElementById('order-preview');
+      orderPreview.innerHTML = '';
+      
+      let hasItems = false;
+      let total = 0;
+      
+      document.querySelectorAll('.product-card').forEach(card => {
+        const quantity = parseInt(card.querySelector('.quantity-value').textContent);
+        if (quantity > 0) {
+          hasItems = true;
+          const title = card.querySelector('.product-title').textContent;
+          let priceText = card.querySelector('.product-price').textContent;
+          
+          // Extrai o preço do texto
+          let price = 0;
+          const priceMatch = priceText.match(/R\$\s*(\d+,\d{2})/);
+          if (priceMatch) {
+            price = parseFloat(priceMatch[1].replace(',', '.'));
+          }
+          
+          total += price * quantity;
+          
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'order-item';
+          itemDiv.innerHTML = `
+            <span>${title} (x${quantity})</span>
+            <span>R$ ${(price * quantity).toFixed(2).replace('.', ',')}</span>
+          `;
+          orderPreview.appendChild(itemDiv);
+          
+          // Adiciona ingredientes selecionados
+          const ingredients = card.querySelectorAll('.ingredients-list input:checked');
+          if (ingredients.length > 0) {
+            const ingredientsDiv = document.createElement('div');
+            ingredientsDiv.style.marginLeft = '15px';
+            ingredientsDiv.style.fontSize = '0.9rem';
+            ingredientsDiv.style.color = '#666';
+            
+            ingredients.forEach(ing => {
+              const ingItem = document.createElement('div');
+              ingItem.textContent = `+ ${ing.value}`;
+              ingredientsDiv.appendChild(ingItem);
+            });
+            
+            orderPreview.appendChild(ingredientsDiv);
+          }
+        }
+      });
+      
+      if (hasItems) {
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'order-item';
+        totalDiv.style.marginTop = '1rem';
+        totalDiv.style.paddingTop = '1rem';
+        totalDiv.style.borderTop = '1px solid #eee';
+        totalDiv.style.fontWeight = 'bold';
+        totalDiv.innerHTML = `
+          <span>Total</span>
+          <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
+        `;
+        orderPreview.appendChild(totalDiv);
+      } else {
+        orderPreview.innerHTML = '<p style="color:#666; text-align:center;">Nenhum item selecionado ainda</p>';
+      }
+    }
+
+    // Rola até o resumo do pedido
+    function scrollToOrder() {
+      document.querySelector('.order-summary').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    // Envia o pedido para o WhatsApp
+    function enviarPedido() {
+      const nome = document.getElementById('nome').value;
+      const endereco = document.getElementById('endereco').value;
+      const mesa = document.getElementById('mesa').value;
+      
+      let pedido = "📋 *PEDIDO REALIZADO* 🍽️\n\n";
+      let total = 0;
+      
+      // Processa cada item do cardápio
+      document.querySelectorAll('.product-card').forEach(card => {
+        const quantity = parseInt(card.querySelector('.quantity-value').textContent);
+        if (quantity > 0) {
+          const title = card.querySelector('.product-title').textContent;
+          let priceText = card.querySelector('.product-price').textContent;
+          
+          // Extrai o preço do texto
+          let price = 0;
+          const priceMatch = priceText.match(/R\$\s*(\d+,\d{2})/);
+          if (priceMatch) {
+            price = parseFloat(priceMatch[1].replace(',', '.'));
+          }
+          
+          // Verifica se é suco para adicionar o tipo (água/leite)
+          let itemTitle = title;
+          if (title.includes('Sucos')) {
+            const selectedOption = card.querySelector('.beverage-option.selected');
+            if (selectedOption) {
+              itemTitle += ` (${selectedOption.textContent.trim()})`;
+            }
+          }
+          
+          pedido += `*${itemTitle}* - R$ ${price.toFixed(2).replace('.', ',')} (x${quantity})\n`;
+          total += price * quantity;
+          
+          // Adiciona ingredientes selecionados
+          const ingredients = card.querySelectorAll('.ingredients-list input:checked');
+          if (ingredients.length > 0) {
+            ingredients.forEach(ing => {
+              pedido += `   ➕ ${ing.value}\n`;
+            });
+          }
+          
+          pedido += '\n';
+        }
+      });
+      
+      // Adiciona total e informações do cliente
+      pedido += `\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}\n\n`;
+      pedido += `👤 *Nome:* ${nome || '---'}\n`;
+      pedido += `📍 *Endereço:* ${endereco || '---'}\n`;
+      pedido += `🍽️ *Mesa:* ${mesa || '---'}\n\n`;
+      pedido += `🕒 *Horário:* ${new Date().toLocaleTimeString()}`;
+      
+      // Número do WhatsApp (substitua pelo seu)
+      const numero = "5584988507804";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(pedido)}`;
+      window.open(url, '_blank');
+    }
+
+    // Inicializa a pré-visualização do pedido
+    updateOrderPreview();
+  </script>
+</body>
+</html>
